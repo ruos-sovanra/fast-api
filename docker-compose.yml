@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  kak_bank:
+    container_name: 'store_api'
+    #    image: 'surveybox_stage:latest'
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    environment:
+      - TZ=Asia/Bangkok
+    ports:
+      - '8888:8080'   #follow you port
+    volumes:
+      - '/home/istad/devops-spring-deployment/api/images:/app/filestorage/images/'

@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: "EcommerceApi"
+  profiles:
+    active: dev # configuration dev file

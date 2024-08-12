@@ -1,0 +1,29 @@
+server:
+  port: 8888
+#Congiguration for the database
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/Ecommerce
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+  jpa:
+    hibernate:
+      ddl-auto: update
+file_storage:
+  image_location: "/filestorage/images/"
+  client_path: "/images/**"
+springdoc:
+  swagger-ui:
+    path: /api
+
+# This is for the access token
+ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
+ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key
+# This is for the refresh token
+REFRESH_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/refresh-token-private.key
+REFRESH_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/refresh-token-public.key
