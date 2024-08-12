@@ -3,9 +3,9 @@ server:
 #Congiguration for the database
 spring:
   datasource:
-    url: jdbc:postgresql://152.42.163.114:5432/postgres
+    url: jdbc:postgresql://8.213.199.165:5432/ecommerce
     username: postgres
-    password: postgres
+    password: qwerty
     driver-class-name: org.postgresql.Driver
   servlet:
     multipart:
@@ -14,13 +14,13 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
 file_storage:
   image_location: "/filestorage/images/"
   client_path: "/images/**"
 springdoc:
   swagger-ui:
     path: /api
+
 # This is for the access token
 ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
 ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key

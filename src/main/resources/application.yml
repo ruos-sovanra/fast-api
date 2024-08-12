@@ -2,4 +2,4 @@ spring:
   application:
     name: "EcommerceApi"
   profiles:
-    active: dev # configuration dev file
+    active: prod # configuration dev file
