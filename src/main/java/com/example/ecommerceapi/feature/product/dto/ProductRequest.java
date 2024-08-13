@@ -10,8 +10,8 @@ public record ProductRequest(
     String description,
     double price,
     int quantity,
-    Long categoryId,
-    Long brandId,
+    String categoryName,
+    String brandName,
     List<String> images
 ) {
 }

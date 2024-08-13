@@ -75,10 +75,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = productMapper.toProduct(productRequest);
-        Category category = categoryRepository.findById(productRequest.categoryId())
+        Category category = categoryRepository.findByName(productRequest.categoryName())
                 .orElseThrow(()-> new NoSuchElementException("Category not found"));
-        Brand brand = brandRepository.findById(productRequest.brandId())
-                .orElseThrow(()-> new NoSuchElementException("Brand not found"));
+        Brand brand = brandRepository.findByName(productRequest.brandName()).orElse(null);
+
         product.setCategory(category);
         product.setBrand(brand);
         product.setImages(productRequest.images());
@@ -91,10 +91,9 @@ public class ProductServiceImpl implements ProductService{
     public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new NoSuchElementException("Product not found"));
-        Category category = categoryRepository.findById(productRequest.categoryId())
+        Category category = categoryRepository.findByName(productRequest.categoryName())
                 .orElseThrow(()-> new NoSuchElementException("Category not found"));
-        Brand brand = brandRepository.findById(productRequest.brandId())
-                .orElseThrow(()-> new NoSuchElementException("Brand not found"));
+        Brand brand = brandRepository.findByName(productRequest.brandName()).orElse(null);
         product.setCategory(category);
         product.setBrand(brand);
         product.setName(productRequest.name());
