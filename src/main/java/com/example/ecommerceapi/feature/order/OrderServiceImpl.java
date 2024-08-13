@@ -33,16 +33,17 @@ public class OrderServiceImpl implements OrderService{
 
         Order order = orderMapper.toOrder(orderRequest);
 
-        Product product = productRepository.findById(orderRequest.productId()).orElseThrow(
+        Product product = productRepository.findProductByUuid(orderRequest.uuid()).orElseThrow(
                 () -> new NoSuchElementException("Product not found")
         );
-        User user = userRepository.findById(currentUser.getUser().getId()).orElseThrow(
+        User user = userRepository.findUserByUuid(currentUser.getUser().getUuid()).orElseThrow(
                 () -> new NoSuchElementException("User not found")
         );
 
         var order_number = UUID.randomUUID().toString();
 
         order.setOrderDetailNumber(order_number);
+        order.setUuid(UUID.randomUUID().toString());
         order.setQuantity(1);
         order.setProduct(product);
         order.setUser(user);
@@ -53,8 +54,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderResponse getOrder(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(
+    public OrderResponse getOrder(String uuid) {
+        Order order = orderRepository.findByUuid(uuid).orElseThrow(
                 () -> new NoSuchElementException("Order not found")
         );
         return orderMapper.toOrderResponse(order);
@@ -62,8 +63,8 @@ public class OrderServiceImpl implements OrderService{
 
 
     @Override
-    public void deleteOrder(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(
+    public void deleteOrder(String uuid) {
+        Order order = orderRepository.findByUuid(uuid).orElseThrow(
                 () -> new NoSuchElementException("Order not found")
         );
         orderRepository.delete(order);
@@ -71,8 +72,8 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public OrderResponse updateOrderStatus(Long id, OrderUpdateRequest orderUpdateRequest) {
-        Order order = orderRepository.findById(id).orElseThrow(
+    public OrderResponse updateOrderStatus(String uuid, OrderUpdateRequest orderUpdateRequest) {
+        Order order = orderRepository.findByUuid(uuid).orElseThrow(
                 () -> new NoSuchElementException("Order not found")
         );
         order.setStatus(orderUpdateRequest.status());
@@ -81,15 +82,15 @@ public class OrderServiceImpl implements OrderService{
     }
 
     @Override
-    public List<OrderResponse> getOrdersByUserId(Long userId) {
-        List<Order> orders = orderRepository.findByUserId(userId);
+    public List<OrderResponse> getOrdersByUserId(@AuthenticationPrincipal CustomUserDetail currentUser) {
+        List<Order> orders = orderRepository.findByUser_Uuid(currentUser.getUser().getUuid());
         return orders.stream().map(orderMapper::toOrderResponse).toList();
     }
 
     @Override
-    public OrderResponse updateQuantity(Long id, int quantity) {
+    public OrderResponse updateQuantity(String uuid, int quantity) {
 
-        Order order = orderRepository.findById(id).orElseThrow(
+        Order order = orderRepository.findByUuid(uuid).orElseThrow(
                 () -> new NoSuchElementException("Order not found")
         );
 

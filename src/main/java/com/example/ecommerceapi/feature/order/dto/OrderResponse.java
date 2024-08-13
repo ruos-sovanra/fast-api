@@ -9,6 +9,7 @@ import java.util.List;
 @Builder
 public record OrderResponse(
         Long id,
+        String uuid,
         String status,
         String addressId,
         int quantity,

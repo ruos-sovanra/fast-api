@@ -29,37 +29,37 @@ public class OrderRestController {
 
 
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/user")
     @Operation(summary = "Get all orders by user id")
-    public BaseResponse<List<OrderResponse>> getOrderByUserId(@PathVariable Long userId) {
+    public BaseResponse<List<OrderResponse>> getOrderByUserId(@AuthenticationPrincipal CustomUserDetail currentUser) {
         return BaseResponse.<List<OrderResponse>>ok()
-                .setPayload(orderService.getOrdersByUserId(userId));
+                .setPayload(orderService.getOrdersByUserId(currentUser));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{uuid}")
     @Operation(summary = "Get order by id")
-    public BaseResponse<OrderResponse> getOrder(@PathVariable Long id) {
-        return BaseResponse.<OrderResponse>ok().setPayload(orderService.getOrder(id));
+    public BaseResponse<OrderResponse> getOrder(@PathVariable String uuid) {
+        return BaseResponse.<OrderResponse>ok().setPayload(orderService.getOrder(uuid));
     }
 
 
-    @PatchMapping("/{id}/status")
+    @PatchMapping("/{uuid}/status")
     @Operation(summary = "Update order status")
-    public BaseResponse<OrderResponse> updateOrderStatus(@PathVariable Long id, OrderUpdateRequest orderUpdateRequest) {
-        return BaseResponse.<OrderResponse>ok().setPayload(orderService.updateOrderStatus(id, orderUpdateRequest));
+    public BaseResponse<OrderResponse> updateOrderStatus(@PathVariable String uuid, OrderUpdateRequest orderUpdateRequest) {
+        return BaseResponse.<OrderResponse>ok().setPayload(orderService.updateOrderStatus(uuid, orderUpdateRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @Operation(summary = "Delete order by id")
-    public BaseResponse<Void> deleteOrder(@PathVariable Long id) {
-        orderService.deleteOrder(id);
+    public BaseResponse<Void> deleteOrder(@PathVariable String uuid) {
+        orderService.deleteOrder(uuid);
         return BaseResponse.<Void>ok();
     }
 
-    @PatchMapping("/{id}/quantity")
+    @PatchMapping("/{uuid}/quantity")
     @Operation(summary = "Update order quantity")
-    public BaseResponse<OrderResponse> updateOrderQuantity(@PathVariable Long id, int quantity) {
-        return BaseResponse.<OrderResponse>ok().setPayload(orderService.updateQuantity(id, quantity));
+    public BaseResponse<OrderResponse> updateOrderQuantity(@PathVariable String uuid, int quantity) {
+        return BaseResponse.<OrderResponse>ok().setPayload(orderService.updateQuantity(uuid, quantity));
     }
 
 

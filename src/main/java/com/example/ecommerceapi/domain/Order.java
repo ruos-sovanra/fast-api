@@ -18,6 +18,7 @@ public class Order {
     private Long id;
     private String status;
     private int quantity;
+    private String uuid;
     private String OrderDetailNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

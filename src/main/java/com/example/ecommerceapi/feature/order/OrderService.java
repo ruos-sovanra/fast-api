@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface OrderService {
     OrderResponse createOrder(OrderRequest orderRequest, @AuthenticationPrincipal CustomUserDetail customUserDetail);
-    OrderResponse getOrder(Long id);
-    void deleteOrder(Long id);
-    OrderResponse updateOrderStatus(Long id, OrderUpdateRequest orderUpdateRequest);
-    List<OrderResponse> getOrdersByUserId(Long userId);
-    OrderResponse updateQuantity(Long id,int quantity);
+    OrderResponse getOrder(String uuid);
+    void deleteOrder(String uuid);
+    OrderResponse updateOrderStatus(String uuid, OrderUpdateRequest orderUpdateRequest);
+    List<OrderResponse> getOrdersByUserId(@AuthenticationPrincipal CustomUserDetail currentUser);
+    OrderResponse updateQuantity(String uuid,int quantity);
 }

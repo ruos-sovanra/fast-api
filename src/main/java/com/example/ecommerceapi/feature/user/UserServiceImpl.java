@@ -12,10 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -42,6 +39,7 @@ public class UserServiceImpl implements UserService {
         List<Role> roles = new ArrayList<>();
         roles.add(role);
         user.setRoles(roles);
+        user.setUuid(UUID.randomUUID().toString());
         User savedUser = userRepository.save(user);
         return userMapper.toUserResponse(savedUser);
     }
