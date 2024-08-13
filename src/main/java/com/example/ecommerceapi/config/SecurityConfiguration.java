@@ -67,6 +67,7 @@ public class SecurityConfiguration {
                         .requestMatchers(
                                 "/api/v1/files/**")
                         .permitAll()
+                        .requestMatchers("/images/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE,"/api/v1/users/**")
                         .hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.PATCH,"/api/v1/users/**")
