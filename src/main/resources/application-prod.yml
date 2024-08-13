@@ -3,7 +3,7 @@ server:
 #Congiguration for the database
 spring:
   datasource:
-    url: jdbc:postgresql://128.199.134.233:5432/ecommerce
+    url: jdbc:postgresql://159.223.38.211:5432/ecommerce
     username: postgres
     password: qwerty
     driver-class-name: org.postgresql.Driver
