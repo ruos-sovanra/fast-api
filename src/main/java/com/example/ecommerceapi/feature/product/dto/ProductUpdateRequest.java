@@ -5,5 +5,5 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record ProductUpdateRequest(List<String> images) {
+public record ProductUpdateRequest(String image) {
 }

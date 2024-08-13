@@ -12,7 +12,7 @@ public interface CategoryService {
     CustomPageUtils<CategoryResponse> getAllCategories(int page, int size);
     CategoryResponse getCategoryById(Long id);
     CategoryResponse createCategory(CategoryRequest categoryRequest);
-    CategoryResponse updateCategory(Long id, CategoryRequest categoryRequest);
-    void deleteCategory(Long id);
+    CategoryResponse updateCategory(String uuid, CategoryRequest categoryRequest);
+    void deleteCategory(String uuid);
     CategoryResponse updateCategoryImage(Long id, CategoryUpdateRequest categoryUpdateRequest);
 }

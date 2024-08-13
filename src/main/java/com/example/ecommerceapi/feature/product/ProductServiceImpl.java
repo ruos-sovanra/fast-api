@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -66,8 +67,9 @@ public class ProductServiceImpl implements ProductService{
 
 
     @Override
-    public ProductResponse getProductByName(String name) {
-        Product product = productRepository.findProductByName(name)
+    public ProductResponse getProductByName(String uuid) {
+
+        Product product = productRepository.findProductByUuid(uuid)
                 .orElseThrow(()-> new NoSuchElementException("Product not found"));
         return productMapper.toProductResponse(product);
     }
@@ -81,15 +83,16 @@ public class ProductServiceImpl implements ProductService{
 
         product.setCategory(category);
         product.setBrand(brand);
-        product.setImages(productRequest.images());
+        product.setImage(productRequest.image());
+        product.setUuid(UUID.randomUUID().toString());
         productRepository.save(product);
 
         return productMapper.toProductResponse(product);
     }
 
     @Override
-    public ProductResponse updateProduct(Long id, ProductRequest productRequest) {
-        Product product = productRepository.findById(id)
+    public ProductResponse updateProduct(String uuid, ProductRequest productRequest) {
+        Product product = productRepository.findProductByUuid(uuid)
                 .orElseThrow(()-> new NoSuchElementException("Product not found"));
         Category category = categoryRepository.findByName(productRequest.categoryName())
                 .orElseThrow(()-> new NoSuchElementException("Category not found"));
@@ -100,14 +103,14 @@ public class ProductServiceImpl implements ProductService{
         product.setDescription(productRequest.description());
         product.setPrice(productRequest.price());
         product.setQuantity(productRequest.quantity());
-        product.setImages(productRequest.images());
+        product.setImage(productRequest.image());
         productRepository.save(product);
         return productMapper.toProductResponse(product);
     }
 
     @Override
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
+    public void deleteProduct(String uuid) {
+        Product product = productRepository.findProductByUuid(uuid)
                 .orElseThrow(() -> new NoSuchElementException("Product not found"));
         product.setIsDeleted(true);
         productRepository.save(product);
@@ -117,7 +120,7 @@ public class ProductServiceImpl implements ProductService{
     public ProductResponse updateProductImage(Long id, ProductUpdateRequest request) {
         Product product = productRepository.findById(id)
                 .orElseThrow(()-> new NoSuchElementException("Product not found"));
-        product.setImages(request.images());
+        product.setImage(request.image());
         productRepository.save(product);
         return productMapper.toProductResponse(product);
     }

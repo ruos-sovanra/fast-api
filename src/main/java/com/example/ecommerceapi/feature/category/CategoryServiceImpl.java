@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -67,13 +68,14 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
         Category category = categoryMapper.requestToCategory(categoryRequest);
+        category.setUuid(UUID.randomUUID().toString());
         categoryRepository.save(category);
         return categoryMapper.toCategoryResponse(category);
     }
 
     @Override
-    public CategoryResponse updateCategory(Long id, CategoryRequest categoryRequest) {
-        Category category = categoryRepository.findById(id)
+    public CategoryResponse updateCategory(String uuid, CategoryRequest categoryRequest) {
+        Category category = categoryRepository.findByUuid(uuid)
                 .orElseThrow(()-> new NoSuchElementException("Category not found"));
         category.setName(categoryRequest.name());
         category.setImage(categoryRequest.image());
@@ -91,8 +93,8 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public void deleteCategory(Long id) {
-        Category category = categoryRepository.findById(id)
+    public void deleteCategory(String uuid) {
+        Category category = categoryRepository.findByUuid(uuid)
                 .orElseThrow(()-> new NoSuchElementException("Category not found"));
         categoryRepository.delete(category);
     }

@@ -9,6 +9,6 @@ public interface BrandService {
     BrandResponse createBrand(BrandRequest request);
     BrandResponse getBrand(Long id);
     List<BrandResponse> getBrands();
-    BrandResponse updateBrand(Long id, BrandRequest request);
-    void deleteBrand(Long id);
+    BrandResponse updateBrand(String uuid, BrandRequest request);
+    void deleteBrand(String uuid);
 }

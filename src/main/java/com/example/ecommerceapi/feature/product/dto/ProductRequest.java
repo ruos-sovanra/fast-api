@@ -12,6 +12,6 @@ public record ProductRequest(
     int quantity,
     String categoryName,
     String brandName,
-    List<String> images
+    String image
 ) {
 }

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface ProductService {
     CustomPageUtils<ProductResponse> getAllProducts(int page, int size);
-    ProductResponse getProductByName(String name);
+    ProductResponse getProductByName(String uuid);
     ProductResponse createProduct(ProductRequest productRequest);
-    ProductResponse updateProduct(Long id, ProductRequest productRequest);
-    void deleteProduct(Long id);
+    ProductResponse updateProduct(String uuid, ProductRequest productRequest);
+    void deleteProduct(String uuid);
     ProductResponse updateProductImage(Long id, ProductUpdateRequest request);
 }

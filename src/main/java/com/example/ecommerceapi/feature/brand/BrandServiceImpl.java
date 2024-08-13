@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +20,7 @@ public class BrandServiceImpl implements BrandService{
     @Override
     public BrandResponse createBrand(BrandRequest request) {
         Brand brand = brandMapper.toBrand(request);
+        brand.setUuid(UUID.randomUUID().toString());
         brandRepository.save(brand);
         return brandMapper.toBrandResponse(brand);
     }
@@ -38,16 +40,16 @@ public class BrandServiceImpl implements BrandService{
     }
 
     @Override
-    public BrandResponse updateBrand(Long id, BrandRequest request) {
-        Brand brand = brandRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Brand not found"));
+    public BrandResponse updateBrand(String uuid, BrandRequest request) {
+        Brand brand = brandRepository.findByUuid(uuid).orElseThrow(()-> new NoSuchElementException("Brand not found"));
         brand.setName(request.name());
         brandRepository.save(brand);
         return brandMapper.toBrandResponse(brand);
     }
 
     @Override
-    public void deleteBrand(Long id) {
-    Brand brand = brandRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Brand not found"));
+    public void deleteBrand(String uuid) {
+    Brand brand = brandRepository.findByUuid(uuid).orElseThrow(()-> new NoSuchElementException("Brand not found"));
 
     brandRepository.delete(brand);
     }

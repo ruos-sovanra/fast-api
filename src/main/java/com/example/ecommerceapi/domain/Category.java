@@ -19,7 +19,8 @@ public class Category {
     private Long id;
     private String name;
     private String image;
+    private String uuid;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
 }

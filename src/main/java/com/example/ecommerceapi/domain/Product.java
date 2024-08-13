@@ -17,16 +17,14 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String uuid;
     private String description;
     private double price;
     private int quantity;
     @Column(name = "is_deleted")
     private Boolean isDeleted = false;
 
-    @ElementCollection
-    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "image")
-    private List<String> images;
+    private String image;
 
     @OneToMany(mappedBy = "product")
     private List<Review> reviews;

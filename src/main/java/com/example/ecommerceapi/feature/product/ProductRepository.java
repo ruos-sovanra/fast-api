@@ -16,9 +16,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAllByIsDeletedFalse(Pageable pageable);
 
+    Optional<Product> findProductByUuid(String uuid);
+
     @Query("SELECT p FROM Product p WHERE p.id = :id AND p.isDeleted = false")
     Optional<Product> findById(@Param("id") Long id);
 
-    @Query("SELECT p FROM Product p WHERE p.name = :name AND p.isDeleted = false")
-    Optional<Product> findProductByName(@Param("name") String name);
+    Optional<Product> findByName(String name);
 }

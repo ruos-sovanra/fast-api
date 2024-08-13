@@ -30,11 +30,11 @@ public class ProductRestController {
         return ResponseEntity.ok(postResponseCustomPage);
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("/{uuid}")
     @Operation(summary = "Get product by name")
-    public BaseResponse<ProductResponse> getProductByName(String name){
+    public BaseResponse<ProductResponse> getProductByName(@PathVariable String uuid){
         return BaseResponse.<ProductResponse>ok()
-                .setPayload(productService.getProductByName(name));
+                .setPayload(productService.getProductByName(uuid));
     }
 
     @PostMapping
@@ -44,28 +44,27 @@ public class ProductRestController {
                 .setPayload(productService.createProduct(productRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     @Operation(summary = "Update a product")
-    public BaseResponse<ProductResponse> updateProduct(@PathVariable Long id,@Valid @RequestBody ProductRequest productRequest){
+    public BaseResponse<ProductResponse> updateProduct(@PathVariable String uuid,@Valid @RequestBody ProductRequest productRequest){
         return BaseResponse.<ProductResponse>ok()
-                .setPayload(productService.updateProduct(id, productRequest));
+                .setPayload(productService.updateProduct(uuid, productRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @Operation(summary = "Delete a product")
-    public BaseResponse<String> deleteProduct(@PathVariable Long id){
-        productService.deleteProduct(id);
+    public BaseResponse<String> deleteProduct(@PathVariable String uuid){
+        productService.deleteProduct(uuid);
         return BaseResponse.<String>ok()
                 .setPayload("Product deleted successfully");
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{uuid}")
     @Operation(summary = "Update a product image")
     public BaseResponse<ProductResponse> updateProductImage(@PathVariable Long id, @RequestBody ProductUpdateRequest request){
         return BaseResponse.<ProductResponse>ok()
                 .setPayload(productService.updateProductImage(id, request));
     }
-
 
 
 

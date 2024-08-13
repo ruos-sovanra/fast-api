@@ -36,11 +36,11 @@ public class CategoryController {
                 .setPayload(categoryService.createCategory(categoryRequest));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     @Operation(summary = "Update a category")
-    public BaseResponse<CategoryResponse> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest){
+    public BaseResponse<CategoryResponse> updateCategory(@PathVariable String uuid, @RequestBody CategoryRequest categoryRequest){
         return BaseResponse.<CategoryResponse>ok()
-                .setPayload(categoryService.updateCategory(id, categoryRequest));
+                .setPayload(categoryService.updateCategory(uuid, categoryRequest));
     }
 
     @PatchMapping("/{id}")
@@ -50,10 +50,10 @@ public class CategoryController {
                 .setPayload(categoryService.updateCategoryImage(id, categoryRequest));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @Operation(summary = "Delete a category")
-    public BaseResponse<String> deleteCategory(@PathVariable Long id){
-        categoryService.deleteCategory(id);
+    public BaseResponse<String> deleteCategory(@PathVariable String uuid){
+        categoryService.deleteCategory(uuid);
         return BaseResponse.<String>ok()
                 .setPayload("Category deleted successfully");
     }

@@ -38,17 +38,17 @@ public class BrandRestController {
                 .setPayload(brandService.getBrand(id));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{uuid}")
     @Operation(summary = "Update a brand by id")
-    public BaseResponse<BrandResponse> updateBrand(@PathVariable Long id, @RequestBody BrandRequest request){
+    public BaseResponse<BrandResponse> updateBrand(@PathVariable String uuid, @RequestBody BrandRequest request){
         return BaseResponse.<BrandResponse>ok()
-                .setPayload(brandService.updateBrand(id, request));
+                .setPayload(brandService.updateBrand(uuid, request));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{uuid}")
     @Operation(summary = "Delete a brand by id")
-    public BaseResponse<Void> deleteBrand(@PathVariable Long id){
-        brandService.deleteBrand(id);
+    public BaseResponse<Void> deleteBrand(@PathVariable String uuid){
+        brandService.deleteBrand(uuid);
         return BaseResponse.<Void>ok();
     }
 }

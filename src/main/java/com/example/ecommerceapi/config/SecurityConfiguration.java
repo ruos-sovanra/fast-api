@@ -72,6 +72,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PATCH,"/api/v1/users/**")
                         .hasAnyAuthority("ROLE_ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/v1/brands/**","/api/v1/categories/**","/api/v1/products/**").permitAll()
+                        .requestMatchers("/api/v1/products/{name}").permitAll()
                         .anyRequest().authenticated()
         )
                 .csrf(AbstractHttpConfigurer::disable)

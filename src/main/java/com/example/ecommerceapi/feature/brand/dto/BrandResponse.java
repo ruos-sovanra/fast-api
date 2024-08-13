@@ -1,4 +1,4 @@
 package com.example.ecommerceapi.feature.brand.dto;
 
-public record BrandResponse(Long id, String name) {
+public record BrandResponse(Long id, String name, String uuid) {
 }
