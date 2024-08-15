@@ -30,6 +30,15 @@ public class ProductRestController {
         return ResponseEntity.ok(postResponseCustomPage);
     }
 
+    @GetMapping("/category/{uuid}")
+    @Operation(summary = "Get all products by category")
+    public ResponseEntity<CustomPageUtils<ProductResponse>> getProductByCategoryUuid(@RequestParam(defaultValue = "0") int page,
+                                                                                    @RequestParam(defaultValue = "10") int size,
+                                                                                    @PathVariable String uuid){
+        CustomPageUtils<ProductResponse> postResponseCustomPage = productService.getProductByCategoryUuid(page, size, uuid);
+        return ResponseEntity.ok(postResponseCustomPage);
+    }
+
     @GetMapping("/{uuid}")
     @Operation(summary = "Get product by name")
     public BaseResponse<ProductResponse> getProductByName(@PathVariable String uuid){

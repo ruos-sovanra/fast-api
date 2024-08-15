@@ -3,6 +3,7 @@ package com.example.ecommerceapi.feature.user;
 import com.example.ecommerceapi.feature.user.dto.UserProfileResponse;
 import com.example.ecommerceapi.feature.user.dto.UserRequest;
 import com.example.ecommerceapi.feature.user.dto.UserResponse;
+import com.example.ecommerceapi.security.CustomUserDetail;
 import com.example.ecommerceapi.utils.BaseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.ConstraintViolation;
@@ -10,6 +11,7 @@ import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -72,5 +74,13 @@ public class UserRestController {
         userService.deleteUser(id);
         return BaseResponse.<Void>ok();
     }
+
+    @GetMapping("/current")
+    @Operation(summary = "Get current user")
+    public BaseResponse<UserResponse> getCurrentUser(@AuthenticationPrincipal CustomUserDetail currentUser) {
+        return BaseResponse.<UserResponse>ok()
+                .setPayload(userService.getUserByUuid(currentUser));
+    }
+
 
 }

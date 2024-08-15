@@ -16,6 +16,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAllByIsDeletedFalse(Pageable pageable);
 
+    Page<Product> findAllByCategory_UuidAndIsDeletedFalse(String uuid, Pageable pageable);
+
     Optional<Product> findProductByUuid(String uuid);
 
     @Query("SELECT p FROM Product p WHERE p.id = :id AND p.isDeleted = false")

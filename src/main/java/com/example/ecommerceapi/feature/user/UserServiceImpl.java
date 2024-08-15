@@ -6,8 +6,10 @@ import com.example.ecommerceapi.feature.user.dto.UserProfileResponse;
 import com.example.ecommerceapi.feature.user.dto.UserRequest;
 import com.example.ecommerceapi.feature.user.dto.UserResponse;
 import com.example.ecommerceapi.mapper.UserMapper;
+import com.example.ecommerceapi.security.CustomUserDetail;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,5 +104,12 @@ public class UserServiceImpl implements UserService {
         User updatedUser = userRepository.save(user);
         entityManager.refresh(user);
         return userMapper.toUserResponse(updatedUser);
+    }
+
+    @Override
+    public UserResponse getUserByUuid(@AuthenticationPrincipal CustomUserDetail currentUser) {
+        User user = userRepository.findUserByUuid(currentUser.getUser().getUuid())
+                .orElseThrow(() -> new NoSuchElementException("User not found"));
+        return userMapper.toUserResponse(user);
     }
 }

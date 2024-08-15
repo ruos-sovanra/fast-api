@@ -8,5 +8,6 @@ import java.util.List;
 public record ProductOrderResponse(
         Long id,
         String name,
-        String image) {
+        String image,
+        double price,String description) {
 }

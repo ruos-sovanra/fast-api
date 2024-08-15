@@ -124,4 +124,10 @@ public class ProductServiceImpl implements ProductService{
         productRepository.save(product);
         return productMapper.toProductResponse(product);
     }
+
+    @Override
+    public CustomPageUtils<ProductResponse> getProductByCategoryUuid(int page, int size,String uuid) {
+        Page<Product> products = productRepository.findAllByCategory_UuidAndIsDeletedFalse(uuid, PageRequest.of(page, size, Sort.by("id").descending()));
+        return CustomPagination(products.map(productMapper::toProductResponse));
+    }
 }

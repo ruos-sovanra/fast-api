@@ -20,6 +20,7 @@ public class Order {
     private int quantity;
     private String uuid;
     private String OrderDetailNumber;
+    private double totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", updatable = false)

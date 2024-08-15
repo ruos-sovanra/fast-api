@@ -14,4 +14,5 @@ public interface ProductService {
     ProductResponse updateProduct(String uuid, ProductRequest productRequest);
     void deleteProduct(String uuid);
     ProductResponse updateProductImage(Long id, ProductUpdateRequest request);
+    CustomPageUtils<ProductResponse> getProductByCategoryUuid(int page, int size,String uuid);
 }
