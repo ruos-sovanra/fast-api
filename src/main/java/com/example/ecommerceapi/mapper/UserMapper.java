@@ -16,7 +16,6 @@ public interface UserMapper {
     @Mapping(target = "roles", source = "roles")
     @Mapping(target = "is_Deleted", source = "deleted")
     UserResponse toUserResponse(User user);
-    @Mapping(target = "roles", source = "roleNames")
     User toUser(UserRequest userRequest);
     @Mapping(target = "orders", source = "orders")
     UserProfileResponse toUserProfileResponse(User user);

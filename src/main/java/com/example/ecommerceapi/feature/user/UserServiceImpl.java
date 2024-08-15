@@ -33,10 +33,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse createUser(UserRequest userRequest) {
+        System.out.println(userRequest);
+
         User user = userMapper.toUser(userRequest);
         user.setPassword(new BCryptPasswordEncoder().encode(userRequest.password()));
         user.setConfirm_password(new BCryptPasswordEncoder().encode(userRequest.confirm_password()));
-        Role role = roleRepository.findByName(userRequest.roleNames().get(0))
+        Role role = roleRepository.findByName("USER")
                 .orElseThrow(()-> new NoSuchElementException("Role Not Found"));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse updateUser(Long id, UserRequest userRequest) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("User not found with id: " + id));
-        Role role = roleRepository.findByName(userRequest.roleNames().get(0))
+        Role role = roleRepository.findByName("USER")
                 .orElseThrow(()-> new NoSuchElementException("Role Not Found"));
         List<Role> roles = new ArrayList<>();
         roles.add(role);
@@ -67,7 +69,6 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
         user.setPassword(new BCryptPasswordEncoder().encode(userRequest.password()));
         user.setConfirm_password(new BCryptPasswordEncoder().encode(userRequest.confirm_password()));
-        user.setProfileImage(userRequest.profileImage());
         var updatedUser = userRepository.save(user);
         return userMapper.toUserResponse(updatedUser);
     }

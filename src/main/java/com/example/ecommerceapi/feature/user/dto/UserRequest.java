@@ -17,7 +17,5 @@ public record UserRequest(
         @Email(message = "Email format is not correct!")
         String email,
         String password,
-        String confirm_password,
-        String profileImage,
-        List<String> roleNames) {
+        String confirm_password) {
 }
