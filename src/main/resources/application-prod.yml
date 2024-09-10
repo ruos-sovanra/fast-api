@@ -3,9 +3,9 @@ server:
 #Congiguration for the database
 spring:
   datasource:
-    url: jdbc:postgresql://159.223.38.211:5432/ecommerce
-    username: postgres
-    password: qwerty
+    url: jdbc:postgresql://152.42.244.49:3242/mbanking_prod
+    username: springdb
+    password: ITE2@2024
     driver-class-name: org.postgresql.Driver
   servlet:
     multipart:

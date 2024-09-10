@@ -11,4 +11,4 @@ services:
     ports:
       - '8080:8080'   #follow you port
     volumes:
-      - '/home/istad/devops-spring-deployment/api/images:/app/filestorage/images/'
+      - '/home/asura/Desktop/test:/app/filestorage/images/'
