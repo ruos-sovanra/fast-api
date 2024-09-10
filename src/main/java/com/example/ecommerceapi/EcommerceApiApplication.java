@@ -12,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(
-//        servers = {
-//                @Server(url = "https://api.psa-khmer.world", description = "Deploy API Server"),
-//        },
+        servers = {
+                @Server(url = "https://api.psa-khmer.world", description = "Deploy API Server"),
+        },
         info = @Info(
                 title = "Ecommerce(Data Analytics Class)",
                 version = "1.0",
